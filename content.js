@@ -2,6 +2,8 @@ function apply(enabled) {
   document.documentElement.setAttribute("data-accessible", enabled ? "true" : "false");
 }
 
+
+
 // Apply saved setting on page load
 chrome.storage.sync.get(["enabled"], (res) => {
   apply(!!res.enabled);
