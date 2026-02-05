@@ -1,0 +1,29 @@
+/* Only apply when enabled */
+html[data-accessible="true"] body {
+  background: #0b0b0b !important;
+  color: #f3f3f3 !important;
+  font-size: 18px !important;
+  line-height: 1.7 !important;
+}
+
+/* Links */
+html[data-accessible="true"] a {
+  color: #9bd1ff !important;
+  text-decoration: underline !important;
+}
+
+/* Inputs/buttons bigger */
+html[data-accessible="true"] button,
+html[data-accessible="true"] input,
+html[data-accessible="true"] select,
+html[data-accessible="true"] textarea {
+  font-size: 18px !important;
+  padding: 12px 14px !important;
+  border-radius: 10px !important;
+}
+
+/* Strong keyboard focus */
+html[data-accessible="true"] *:focus {
+  outline: 3px solid #ffd700 !important;
+  outline-offset: 3px !important;
+}
