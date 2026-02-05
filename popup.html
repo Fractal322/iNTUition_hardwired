@@ -7,7 +7,7 @@
     button { width: 100%; margin: 5px 0; padding: 8px; }
     #output {
       border: 1px solid #ccc;
-      height: 180px;
+      height: 320px;
       overflow: auto;
       padding: 6px;
       white-space: pre-wrap;
@@ -18,6 +18,10 @@
 <body>
 
 <h3>Access Assist</h3>
+
+<input type="text" id="req" placeholder="Type request..." style="width: 100%; padding: 6px; margin-bottom: 10px;"/>
+
+<button id="focus">Toggle Focus Mode</button>
 
 <button id="extract">Extract Text</button>
 <button id="summarise">Summarise</button>

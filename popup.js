@@ -1,9 +1,26 @@
 let lastSummary = "";
+let focusOn = false;
 
 async function getTab() {
   let [tab] = await chrome.tabs.query({active: true, currentWindow: true});
   return tab;
 }
+
+// TOGGLE FOCUS MODE
+document.getElementById("focus").onclick = async () => {
+  let [tab] = await chrome.tabs.query({active:true,currentWindow:true});
+
+  await chrome.scripting.executeScript({
+    target:{tabId:tab.id},
+    files:["content.js"]
+  });
+
+  focusOn = !focusOn;
+
+  chrome.tabs.sendMessage(tab.id, {
+    type: focusOn ? "FOCUS_ON" : "FOCUS_OFF"
+  });
+};
 
 // EXTRACT TEXT
 document.getElementById("extract").onclick = async () => {
