@@ -1,62 +1,30 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Accessible Mode</title>
+  <meta charset="utf-8"/>
   <style>
-    body { font-family: Arial, sans-serif; width: 240px; margin: 12px; }
-    h3 { margin: 0 0 10px; }
-    .row { display: flex; justify-content: space-between; margin: 10px 0; }
-    button {
-      width: 100%;
-      padding: 10px;
-      border-radius: 10px;
+    body { font-family: Arial; width: 320px; padding: 10px; }
+    button { width: 100%; margin: 5px 0; padding: 8px; }
+    #output {
       border: 1px solid #ccc;
-      cursor: pointer;
-      font-size: 14px;
+      height: 180px;
+      overflow: auto;
+      padding: 6px;
+      white-space: pre-wrap;
     }
   </style>
 </head>
+
 <body>
-  <h3>Accessible Mode</h3>
 
-  <div class="row">
-    <span>Status:</span>
-    <strong id="status">OFF</strong>
-  </div>
+<h3>Access Assist</h3>
 
-  <button id="toggle">Turn ON</button>
+<button id="extract">Extract Text</button>
+<button id="summarise">Summarise</button>
+<button id="speak">Read Aloud</button>
 
-  <script>
-    const statusEl = document.getElementById("status");
-    const toggleBtn = document.getElementById("toggle");
+<div id="output">Output appears here...</div>
 
-    function setUI(enabled) {
-      statusEl.textContent = enabled ? "ON" : "OFF";
-      toggleBtn.textContent = enabled ? "Turn OFF" : "Turn ON";
-    }
-
-    function sendToActiveTab(enabled) {
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        if (!tabs[0]) return;
-        chrome.tabs.sendMessage(tabs[0].id, { type: "SET_ACCESSIBLE", enabled });
-      });
-    }
-
-    chrome.storage.sync.get(["enabled"], (res) => {
-      setUI(!!res.enabled);
-    });
-
-    toggleBtn.addEventListener("click", () => {
-      chrome.storage.sync.get(["enabled"], (res) => {
-        const next = !res.enabled;
-        chrome.storage.sync.set({ enabled: next }, () => {
-          setUI(next);
-          sendToActiveTab(next);
-        });
-      });
-    });
-  </script>
+<script src="popup.js"></script>
 </body>
 </html>

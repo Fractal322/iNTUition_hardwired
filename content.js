@@ -1,15 +1,16 @@
-function apply(enabled) {
-  document.documentElement.setAttribute("data-accessible", enabled ? "true" : "false");
-}
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 
+  if (msg.type === "EXTRACT") {
+    let text = "";
 
+    let main = document.querySelector("article, main");
 
-// Apply saved setting on page load
-chrome.storage.sync.get(["enabled"], (res) => {
-  apply(!!res.enabled);
-});
+    if (main) text = main.innerText;
+    else text = document.body.innerText;
 
-// Listen for popup toggle messages
-chrome.runtime.onMessage.addListener((msg) => {
-  if (msg.type === "SET_ACCESSIBLE") apply(!!msg.enabled);
+    text = text.replace(/\s+/g, " ").trim();
+
+    sendResponse({text: text.slice(0, 8000)});
+  }
+
 });

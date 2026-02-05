@@ -1,18 +1,24 @@
 {
   "manifest_version": 3,
-  "name": "Accessible Mode Toggle",
-  "version": "1.0",
-  "description": "Toggle high-contrast readable mode on any website.",
-  "permissions": ["storage"],
+  "name": "Access Assist",
+  "version": "0.1",
+  "description": "Voice + summarisation accessibility assistant",
+  
   "action": {
-    "default_popup": "popup.html",
-    "default_title": "Accessible Mode"
+    "default_popup": "popup.html"
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"],
-      "css": ["styles.css"]
-    }
-  ]
+
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+
+  "host_permissions": [
+    "<all_urls>"
+  ],
+
+  "background": {
+    "service_worker": "background.js"
+  }
 }
