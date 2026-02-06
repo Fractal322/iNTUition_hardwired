@@ -63,6 +63,32 @@ function disableFocusMode() {
   const overlay = document.getElementById("focus-overlay");
   if (overlay) overlay.remove();
 }
+//  NEW: Floating panel pinned to corner
+function ensureAccessAssistPanel() {
+  if (document.getElementById("access-assist-panel")) return;
+
+  const panel = document.createElement("div");
+  panel.id = "access-assist-panel";
+
+  // Minimal UI (you can replace innerHTML with your actual UI later)
+  panel.innerHTML = `<div style="padding:10px;font-weight:bold;">Access Assist</div>`;
+
+  //  Corner positioning
+  panel.style.position = "fixed";
+  panel.style.top = "20px";
+  panel.style.right = "20px";
+  panel.style.width = "420px";
+  panel.style.height = "600px";
+  panel.style.background = "#fff";
+  panel.style.border = "1px solid #ccc";
+  panel.style.zIndex = "9999999";
+  panel.style.overflow = "auto";
+
+  document.body.appendChild(panel);
+}
+
+// Call once so it appears on the page
+ensureAccessAssistPanel();
 
 // Try to click a link/button whose visible text best matches "target"
 function clickBestMatch(target) {
@@ -105,3 +131,4 @@ function clickBestMatch(target) {
   best.click();
   return { ok: true, clickedText: (best.innerText || best.value || "").trim() };
 }
+
