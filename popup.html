@@ -3,15 +3,18 @@
 <head>
   <meta charset="utf-8"/>
   <style>
-    body { font-family: Arial; width: 320px; padding: 10px; }
-    button { width: 100%; margin: 5px 0; padding: 8px; }
+    body { font-family: Arial; width: 520px; padding: 10px; height: 100vh; font-size: 16px; font-weight: bold;}
+    button { width: 100%; margin: 5px 0; padding: 8px; font-size: 16px; font-weight: 500; }
     #output {
       border: 1px solid #ccc;
-      height: 320px;
+      height: calc(100vh - 360px);
       overflow: auto;
-      padding: 6px;
+      padding: 8px;
       white-space: pre-wrap;
+      font-size: 16px;
+      font-weight: 500;
     }
+    h3 { font-size: 17px; font-weight: 600; }
     .row { display: flex; gap: 6px; }
     .row button { width: 50%; }
     input { box-sizing: border-box; }
@@ -30,8 +33,16 @@
   </select>
 
   <div class="row">
-    <button id="run">Run request</button>
-    <button id="voice">Voice</button>
+    <button id="run">
+      <img src="run.png"
+       style="height:50px;width:50px;vertical-align:middle;margin-right:8px;">
+      Run request
+    </button>
+    <button id="voice">
+      <img src="mic.png"
+       style="height:50px;width:50px;vertical-align:middle;margin-right:8px;">
+  Voice
+    </button>
   </div>
 
   <div id="voiceModal" style="
@@ -68,8 +79,16 @@
   </div>
 
   <button id="extract">Extract Text</button>
-  <button id="summarise">Summarise</button>
-  <button id="speak">Read Aloud</button>
+  <button id="summarise">
+    <img src="sum.png"
+       style="height:50px;width:50px;vertical-align:middle;margin-right:8px;">
+    Summarise
+  </button>
+  <button id="speak">
+    <img src="read.png"
+       style="height:50px;width:50px;vertical-align:middle;margin-right:8px;">
+    Read Aloud
+  </button>
 
   <div id="output">Output appears here...</div>
 

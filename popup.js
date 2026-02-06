@@ -36,8 +36,17 @@ function showVoiceModal(show) {
 
 function setOutput(text) {
   const out = $("output");
-  if (out) out.textContent = text;
+  if (!out) return;
+
+  out.textContent = text;
+
+  // Auto-read when voice assistance enabled
+  if (voicePref === "enabled") {
+    const t = (text || "").trim();
+    if (t) speak(t);
+  }
 }
+
 
 // ============================
 // Tab / injection
@@ -84,19 +93,19 @@ function formatServerSummary(data) {
 // Text-to-speech
 // ============================
 function speak(text) {
-  if (!text) {
-    setOutput("Nothing to read yet. Click Summarise first.");
-    return;
-  }
-  try {
-    speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = "en-GB"; // British English
-    speechSynthesis.speak(u);
-  } catch (e) {
-    console.warn("TTS failed:", e);
-  }
+  text = (text || "").trim();
+  if (!text) return;
+
+  speechSynthesis.cancel();
+
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "en-GB";
+  u.rate = 1.0;
+  u.pitch = 1.0;
+
+  speechSynthesis.speak(u);
 }
+
 
 // ============================
 // Server interactions (via background.js)
@@ -219,10 +228,10 @@ async function runFromTextbox() {
   }
 
   // default: ask GPT
-  out.textContent = "Asking GPT...";
+  setOutput("Asking GPT...");
   try {
     const answer = await askGpt(req);
-    out.textContent = answer || "No answer returned.";
+    setOutput(answer || "No answer returned.");
   } catch (e) {
     out.textContent =
       `Ask failed.\n\n${String(e?.message || e)}\n\nIs your server running on http://localhost:3000 ?`;
@@ -306,8 +315,11 @@ function wireHandlers() {
     }
   });
 
-  // Read aloud
-  $("speak")?.addEventListener("click", () => speak(lastSummaryText));
+  // Read aloud (reads whatever is currently shown in the output)
+  $("speak")?.addEventListener("click", () => {
+    const text = ($("output")?.textContent || "").trim();
+    speak(text);
+  });
 
   // Scroll
   $("scrollDown")?.addEventListener("click", async () => {
