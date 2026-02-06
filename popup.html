@@ -12,23 +12,35 @@
       padding: 6px;
       white-space: pre-wrap;
     }
+    .row { display: flex; gap: 6px; }
+    .row button { width: 50%; }
+    input { box-sizing: border-box; }
   </style>
 </head>
 
 <body>
+  <h3>Access Assist</h3>
 
-<h3>Access Assist</h3>
+  <input type="text" id="req" placeholder="Type request..." style="width: 100%; padding: 6px; margin-bottom: 6px;"/>
 
-<input type="text" id="req" placeholder="Type request..." style="width: 100%; padding: 6px; margin-bottom: 10px;"/>
+  <div class="row">
+    <button id="run">Run request</button>
+    <button id="voice">Voice</button>
+  </div>
 
-<button id="focus">Toggle Focus Mode</button>
+  <button id="focus">Toggle Focus Mode</button>
 
-<button id="extract">Extract Text</button>
-<button id="summarise">Summarise</button>
-<button id="speak">Read Aloud</button>
+  <div class="row">
+    <button id="scrollUp">Scroll Up</button>
+    <button id="scrollDown">Scroll Down</button>
+  </div>
 
-<div id="output">Output appears here...</div>
+  <button id="extract">Extract Text</button>
+  <button id="summarise">Summarise</button>
+  <button id="speak">Read Aloud</button>
 
-<script src="popup.js"></script>
+  <div id="output">Output appears here...</div>
+
+  <script src="popup.js"></script>
 </body>
 </html>

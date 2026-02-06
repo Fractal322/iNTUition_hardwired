@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
   "name": "Access Assist",
-  "version": "0.1",
+  "version": "0.2",
   "description": "Voice + summarisation accessibility assistant",
-  
+
   "action": {
     "default_popup": "popup.html"
   },
@@ -11,11 +11,13 @@
   "permissions": [
     "activeTab",
     "scripting",
-    "storage"
+    "storage",
+    "tabs"
   ],
 
   "host_permissions": [
-    "<all_urls>"
+    "<all_urls>",
+    "http://localhost:3000/*"
   ],
 
   "background": {
