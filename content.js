@@ -63,37 +63,47 @@ function disableFocusMode() {
   const overlay = document.getElementById("focus-overlay");
   if (overlay) overlay.remove();
 }
-//  NEW: Floating panel pinned to corner
+/* ---------------- ACCESS ASSIST PANEL ---------------- */
+
 function ensureAccessAssistPanel() {
   if (document.getElementById("access-assist-panel")) return;
 
   const panel = document.createElement("div");
   panel.id = "access-assist-panel";
 
-  // Minimal UI (you can replace innerHTML with your actual UI later)
-  panel.innerHTML = `<div style="padding:10px;font-weight:bold;">Access Assist</div>`;
+  panel.innerHTML = `
+    <div style="padding:10px;font-weight:bold;border-bottom:1px solid #ccc;">
+      Access Assist
+    </div>
+    <div style="padding:10px;">
+      Panel active
+    </div>
+  `;
 
- panel.style.position = "fixed";
-panel.style.top = "0";        // ⬅️ top edge
-panel.style.left = "0";       // ⬅️ LEFT-MOST corner
+  /* 🔥 FORCE TOP-LEFT CORNER (OVERRIDES EVERYTHING) */
+  panel.style.setProperty("position", "fixed", "important");
+  panel.style.setProperty("top", "0px", "important");
+  panel.style.setProperty("left", "0px", "important");
+  panel.style.setProperty("right", "auto", "important");
+  panel.style.setProperty("bottom", "auto", "important");
+  panel.style.setProperty("transform", "none", "important");
+  panel.style.setProperty("inset", "auto", "important");
+  panel.style.setProperty("margin", "0", "important");
 
-panel.style.right = "auto";   // clear right
-panel.style.transform = "none";
-panel.style.margin = "0";
-
-panel.style.width = "420px";
-panel.style.height = "100vh"; // full height (optional but nice)
-panel.style.background = "#ffffff";
-panel.style.border = "1px solid #ccc";
-panel.style.borderRadius = "0"; // flush edge look
-panel.style.zIndex = "9999999";
-panel.style.overflow = "auto";
+  panel.style.setProperty("width", "420px", "important");
+  panel.style.setProperty("height", "100vh", "important");
+  panel.style.setProperty("background", "#ffffff", "important");
+  panel.style.setProperty("border", "1px solid #ccc", "important");
+  panel.style.setProperty("border-radius", "0", "important");
+  panel.style.setProperty("overflow", "auto", "important");
+  panel.style.setProperty("z-index", "2147483647", "important");
 
   document.body.appendChild(panel);
 }
 
-// Call once so it appears on the page
+// CREATE PANEL IMMEDIATELY
 ensureAccessAssistPanel();
+
 
 // Try to click a link/button whose visible text best matches "target"
 function clickBestMatch(target) {
@@ -136,6 +146,7 @@ function clickBestMatch(target) {
   best.click();
   return { ok: true, clickedText: (best.innerText || best.value || "").trim() };
 }
+
 
 
 
