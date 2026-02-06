@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8"/>
   <style>
-    body { font-family: Arial; width: 520px; padding: 10px; height: 100vh; }
+    body { font-family: Arial; width: 320px; padding: 10px; }
     button { width: 100%; margin: 5px 0; padding: 8px; }
     #output {
       border: 1px solid #ccc;
-      height: calc(100vh - 360px);
+      height: 320px;
       overflow: auto;
-      padding: 8px;
+      padding: 6px;
       white-space: pre-wrap;
     }
     .row { display: flex; gap: 6px; }
@@ -23,14 +23,41 @@
 
   <input type="text" id="req" placeholder="Type request..." style="width: 100%; padding: 6px; margin-bottom: 6px;"/>
 
+  <!--  NEW: choose what "Run request" does -->
+  <select id="reqMode">
+    <option value="ask" selected>Ask GPT (chat)</option>
+    <option value="command">Command (control page)</option>
+  </select>
+
   <div class="row">
     <button id="run">Run request</button>
-   <button id="voice">
-  <img src="mic.png"
-       alt="Microphone"
-       style="height:40px;width:40px;vertical-align:middle;margin-right:8px;">
-  Voice
-</button>
+    <button id="voice">Voice</button>
+  </div>
+
+  <div id="voiceModal" style="
+  display:none;
+  border:1px solid #ccc;
+  padding:10px;
+  margin:10px 0;
+  border-radius:8px;
+  background:#f8f8f8;
+">
+  <div style="font-weight:600; margin-bottom:6px;">
+    Enable voice assistance?
+  </div>
+  <div style="font-size:12px; margin-bottom:10px;">
+    If enabled, you can use your microphone to control the extension. Chrome will ask for mic permission.
+  </div>
+
+  <label style="display:flex; gap:8px; align-items:center; font-size:12px; margin-bottom:10px;">
+    <input type="checkbox" id="rememberVoiceChoice" />
+    Remember my choice
+  </label>
+
+  <div style="display:flex; gap:8px;">
+    <button id="enableVoiceBtn" style="flex:1;">Enable voice</button>
+    <button id="notNowVoiceBtn" style="flex:1;">Not now</button>
+  </div>
   </div>
 
   <button id="focus">Toggle Focus Mode</button>
@@ -41,24 +68,11 @@
   </div>
 
   <button id="extract">Extract Text</button>
-  <button id="summarise">
-    <img src="sum.png"
-       style="height:40px;width:40px;vertical-align:middle;margin-right:8px;">
-    Summarise</button>
-  <button id="speak">
-    <img src="read.png"
-       style="height:40px;width:40px;vertical-align:middle;margin-right:8px;">
-    Read Aloud</button>
+  <button id="summarise">Summarise</button>
+  <button id="speak">Read Aloud</button>
 
   <div id="output">Output appears here...</div>
 
   <script src="popup.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-

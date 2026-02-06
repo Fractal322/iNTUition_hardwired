@@ -33,6 +33,15 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         return;
       }
 
+            // NEW: direct ask GPT
+      if (msg.type === "ASK") {
+        const input = msg.input || "";
+        const page_text = msg.page_text || ""; // optional, can be empty
+        const data = await postJson("/ask", { input, page_text });
+        sendResponse({ ok: true, data });
+        return;
+      }
+
       sendResponse({ ok: false, error: "Unknown message type" });
     } catch (e) {
       sendResponse({ ok: false, error: String(e?.message || e) });

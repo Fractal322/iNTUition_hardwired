@@ -106,9 +106,32 @@ function clickBestMatch(target) {
   return { ok: true, clickedText: (best.innerText || best.value || "").trim() };
 }
 
+function startVoiceOnceOnPage() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) {
+    return Promise.resolve({ ok: false, error: "SpeechRecognition not supported on this page." });
+  }
 
+  return new Promise((resolve) => {
+    const rec = new SR();
+    rec.lang = "en-US";
+    rec.interimResults = false;
+    rec.maxAlternatives = 1;
 
+    rec.onresult = (ev) => {
+      const text = ev.results?.[0]?.[0]?.transcript || "";
+      resolve({ ok: true, text });
+    };
 
+    rec.onerror = (ev) => resolve({ ok: false, error: ev.error || "unknown" });
 
+    rec.start();
+  });
+}
 
-
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  if (msg.type === "VOICE_ON_PAGE") {
+    startVoiceOnceOnPage().then(sendResponse);
+    return true;
+  }
+});
