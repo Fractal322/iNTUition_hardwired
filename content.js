@@ -76,7 +76,7 @@ function ensureAccessAssistPanel() {
   //  Corner positioning
  panel.style.position = "fixed";
   panel.style.top = "20px";
-  panel.style.right = "20px";     // 🔹 RIGHT side
+  panel.style.right = "60px";     // 🔹 RIGHT side
   panel.style.width = "420px";
   panel.style.height = "600px";
   panel.style.background = "#ffffff";
@@ -133,5 +133,6 @@ function clickBestMatch(target) {
   best.click();
   return { ok: true, clickedText: (best.innerText || best.value || "").trim() };
 }
+
 
 
