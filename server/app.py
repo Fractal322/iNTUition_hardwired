@@ -13,7 +13,7 @@ OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "").strip()
 # -------------------------
 # Helpers
 # -------------------------
-def clamp_text(text: str, max_chars: int = 12000) -> str:
+def clamp_text(text: str, max_chars: int = 25000) -> str:
     text = (text or "").strip()
     if len(text) > max_chars:
         text = text[:max_chars]
@@ -35,11 +35,12 @@ def extract_output_text_from_responses_api(j: dict) -> str:
 
 def parse_summary(text: str):
     """
-    Parse the model's formatted output.
-    Expect format:
-      TL;DR: ...
-      • ...
-      Key actions: a, b, c
+    "You summarise webpages for accessibility.\n"
+    "Summarise ONLY the main content.\n"
+    "Ignore navigation, ads, cookie banners.\n\n"
+    "Output format:\n"
+    "• 3–5 bullet points, each ≤20 words\n"
+    "Key actions: 3–5 short actions\n"
     """
     tldr = ""
     bullets = []

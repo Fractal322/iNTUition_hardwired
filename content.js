@@ -85,7 +85,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     const main = document.querySelector("article, main");
     text = (main ? main.innerText : document.body.innerText) || "";
     text = text.replace(/\s+/g, " ").trim();
-    sendResponse({ text: text.slice(0, 12000) });
+    sendResponse({ text: text.slice(0, 25000) });
     return true;
   }
 

@@ -74,21 +74,22 @@ async function ensureContentInjected(tabId) {
 // Summary formatting
 // ============================
 function formatServerSummary(data) {
-  const tldr = data?.tldr || "";
   const bullets = Array.isArray(data?.bullets) ? data.bullets : [];
   const actions = Array.isArray(data?.key_actions) ? data.key_actions : [];
 
   let out = "";
-  out += `TL;DR: ${tldr}\n\n`;
+
   if (bullets.length) {
-    out += "Key Points:\n";
     for (const b of bullets) out += `• ${b}\n`;
     out += "\n";
   }
-  if (actions.length) out += `Key actions: ${actions.join(", ")}\n`;
+
+  if (actions.length) {
+    out += `Key actions: ${actions.join(", ")}\n`;
+  }
+
   return out.trim();
 }
-
 // ============================
 // Text-to-speech
 // ============================
