@@ -74,14 +74,16 @@ function ensureAccessAssistPanel() {
   panel.innerHTML = `<div style="padding:10px;font-weight:bold;">Access Assist</div>`;
 
   //  Corner positioning
-  panel.style.position = "fixed";
+ panel.style.position = "fixed";
   panel.style.top = "20px";
-  panel.style.right = "20px";
+  panel.style.right = "20px";     // 🔹 RIGHT side
   panel.style.width = "420px";
   panel.style.height = "600px";
-  panel.style.background = "#fff";
+  panel.style.background = "#ffffff";
   panel.style.border = "1px solid #ccc";
-  panel.style.zIndex = "9999999";
+  panel.style.borderRadius = "10px";
+  panel.style.zIndex = "999999";
+  panel.style.boxShadow = "0 8px 20px rgba(0,0,0,0.25)";
   panel.style.overflow = "auto";
 
   document.body.appendChild(panel);
@@ -131,4 +133,5 @@ function clickBestMatch(target) {
   best.click();
   return { ok: true, clickedText: (best.innerText || best.value || "").trim() };
 }
+
 
