@@ -73,20 +73,19 @@ function ensureAccessAssistPanel() {
   // Minimal UI (you can replace innerHTML with your actual UI later)
   panel.innerHTML = `<div style="padding:10px;font-weight:bold;">Access Assist</div>`;
 
-  /* ✅ MOVE PANEL TO RIGHT SIDE (force) */
-panel.style.position = "fixed";
-panel.style.top = "20px";
-panel.style.right = "20px";
+ panel.style.position = "fixed";
+panel.style.top = "0";        // ⬅️ top edge
+panel.style.left = "0";       // ⬅️ LEFT-MOST corner
 
-panel.style.left = "auto";       // important
-panel.style.transform = "none";  // important
-panel.style.margin = "0";        // important
+panel.style.right = "auto";   // clear right
+panel.style.transform = "none";
+panel.style.margin = "0";
 
 panel.style.width = "420px";
-panel.style.height = "600px";
+panel.style.height = "100vh"; // full height (optional but nice)
 panel.style.background = "#ffffff";
 panel.style.border = "1px solid #ccc";
-panel.style.borderRadius = "10px";
+panel.style.borderRadius = "0"; // flush edge look
 panel.style.zIndex = "9999999";
 panel.style.overflow = "auto";
 
@@ -137,6 +136,7 @@ function clickBestMatch(target) {
   best.click();
   return { ok: true, clickedText: (best.innerText || best.value || "").trim() };
 }
+
 
 
 
